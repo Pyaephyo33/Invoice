@@ -42,7 +42,8 @@
                 </div>
                 <div class="relative">
                     <i class="table--search--input--icon fas fa-search "></i>
-                    <input class="table--search--input" type="text" placeholder="Search invoice">
+                    <input class="table--search--input" type="text" placeholder="Search invoice"
+                    v-model="searchInvoice" @keyup="search()">
                 </div>
             </div>
 
@@ -82,6 +83,9 @@ import { onMounted, ref } from 'vue';
 import axois from 'axios';
 
 let invoices = ref([]);
+let searchInvoice = ref([])
+
+
 
 onMounted(async () => {
     getInvoices();
@@ -92,6 +96,18 @@ const getInvoices = async () => {
     console.log('response', response);
     invoices.value = response.data.invoices
 }
+
+const search = async () => {
+    try {
+        let response = await axios.get('/api/search_invoice?s=' + searchInvoice.value);
+        console.log('response', response.data.invoices);
+        invoices.value = response.data.invoices;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+};
+
+
 
 
 </script>
