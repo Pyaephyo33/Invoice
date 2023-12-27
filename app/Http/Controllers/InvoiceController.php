@@ -95,4 +95,9 @@ class InvoiceController extends Controller
             'invoice' => $invoice
         ], 200);
     }
+
+
+    public function edit_invoice($id) {
+        
+    }
 }
